@@ -9,14 +9,16 @@ Struktur repositori ini dirancang agar sederhana dan mudah dikembangkan:
 ```text
 .
 ├── apps/                   # Seluruh manifest aplikasi ada di sini
-│   ├── web-app/            # Contoh aplikasi web
+│   ├── aplikasi-web-1/     # Contoh aplikasi web
 │   │   ├── deployment.yaml
 │   │   ├── service.yaml
 │   │   └── ingress.yaml
-│   ├── database/           # Contoh konfigurasi database
-│   │   └── statefulset.yaml
-│   └── api-service/        # Bisa menggunakan Kustomize atau plain YAML
-│       └── kustomization.yaml
+│   │   └── secret.yaml
+│   ├── aplikasi-web-2/     
+│   │   ├── deployment.yaml
+│   │   ├── service.yaml
+│   │   └── ingress.yaml
+│   │   └── secret.yaml
 └── README.md
 
 ```
@@ -83,12 +85,5 @@ Jika Anda memiliki akses **ArgoCD CLI**, perintah berikut akan sering digunakan:
 `argocd app sync <nama-app>`
 * **Melihat status kesehatan aplikasi:**
 `argocd app get <nama-app>`
-
----
-
-## 📝 Catatan Penting
-
-* Pastikan **Namespace** target sudah dibuat di cluster sebelum melakukan deployment, atau tambahkan opsi `CreateNamespace=true` pada `syncPolicy`.
-* Gunakan folder `apps/` sebagai pemisah logis antar layanan agar tidak terjadi bentrokan manifest.
 
 ---
