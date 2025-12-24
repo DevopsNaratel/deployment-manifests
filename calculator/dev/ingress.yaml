@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: calculator-ingress
+  namespace: testing
+  annotations:
+    # Menggunakan rewrite agar request ke /calculator diteruskan ke / di dalam container
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # Penting: Menambahkan trailing slash otomatis jika user lupa mengetiknya
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: k8s-01.naratel.net.id
+    http:
+      paths:
+      - path: /calculator/?(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: calculator-service
+            port:
+              number: 80
