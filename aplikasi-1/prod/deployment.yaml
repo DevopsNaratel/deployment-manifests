@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: haloword
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: haloword-deployment
+  namespace: production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: haloword
+  template:
+    metadata:
+      labels:
+        app: haloword
+    spec:
+      containers:
+      - name: haloword
+        image: haloword:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: haloword-service
+  namespace: haloword
+spec:
+  selector:
+    app: haloword
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30062
+  type: NodePort
