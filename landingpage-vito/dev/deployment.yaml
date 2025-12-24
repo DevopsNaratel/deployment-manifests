@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: landingpage-vito
-        image: diwamln/landingpage-vito:latest # Ganti dengan nama image Anda di Docker Hub
+        image: docker.io/diwamln/landingpage-vito:build-5-0e69fd7
         ports:
         - containerPort: 80
         resources:
