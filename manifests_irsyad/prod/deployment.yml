@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: florist-landing-page
+  namespace: production
+  labels:
+    app: florist-landing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: florist-landing
+  template:
+    metadata:
+      labels:
+        app: florist-landing
+    spec:
+      containers:
+      - name: florist-landing
+        image: docker.io/your-dockerhub-username/landing-page-florist:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: florist-landing-service
+  namespace: production
+spec:
+  selector:
+    app: florist-landing
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30053 # Port akses manual via IP VPS
+  type: NodePort
