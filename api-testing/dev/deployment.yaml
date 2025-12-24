@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: api-testing
-        image: diwamln/api-testing:latest # Ganti dengan nama image Anda di Docker Hub
+        image: docker.io/diwamln/api-testing:build-4-dd1375d
         ports:
         - containerPort: 80
         resources:
