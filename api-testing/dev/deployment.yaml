@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-testing
+  namespace: testing
+  labels:
+    app: api-testing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-testing
+  template:
+    metadata:
+      labels:
+        app: api-testing
+    spec:
+      containers:
+      - name: api-testing
+        image: diwamln/api-testing:latest # Ganti dengan nama image Anda di Docker Hub
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-testing-service
+  namespace: testing
+spec:
+  selector:
+    app: api-testing
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30012 # Port akses manual via IP VPS
+  type: NodePort
