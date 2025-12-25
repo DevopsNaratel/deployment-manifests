@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: room-booking-app
+  namespace: testing
+  labels:
+    app: room-booking
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: room-booking
+  template:
+    metadata:
+      labels:
+        app: room-booking
+    spec:
+      # --- INIT CONTAINER UNTUK MIGRASI OTOMATIS ---
+      initContainers:
+      - name: migration
+        image: docker.io/diwamln/room-booking:latest
+        command: ["php", "artisan", "migrate", "--force"]
+        envFrom:
+        - secretRef:
+            name: laravel-secrets
+      
+      # --- CONTAINER APLIKASI UTAMA ---
+      containers:
+      - name: room-booking
+        image: docker.io/diwamln/room-booking:latest
+        ports:
+        - containerPort: 80
+        envFrom:
+        - secretRef:
+            name: laravel-secrets
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: room-booking-service
+  namespace: testing
+spec:
+  selector:
+    app: room-booking
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32222
+  type: NodePort
