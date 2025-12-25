@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: landingpage-vito
-        image: docker.io/diwamln/landingpage-vito:build-6-6f2111b
+        image: docker.io/diwamln/landingpage-vito:build-8-6f2111b
         ports:
         - containerPort: 80
         resources:
