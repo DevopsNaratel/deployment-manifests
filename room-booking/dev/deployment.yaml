@@ -4,7 +4,7 @@ metadata:
   name: room-booking-app
   namespace: testing
 spec:
-  replicas: 1 # Untuk testing 1 cukup
+  replicas: 1
   selector:
     matchLabels:
       app: room-booking
@@ -16,7 +16,8 @@ spec:
       initContainers:
       - name: migration
         image: docker.io/diwamln/room-booking:latest
-        command: ["php", "artisan", "migrate", "--force"]
+        # PAKSA CLEAR CACHE AGAR TIDAK PAKAI SQLITE
+        command: ["sh", "-c", "php artisan config:clear && php artisan migrate --force"]
         envFrom:
         - secretRef:
             name: laravel-secrets
@@ -24,10 +25,10 @@ spec:
       containers:
       - name: room-booking
         image: docker.io/diwamln/room-booking:latest
-        # KUNCI: Kita jalankan artisan serve agar container bisa diakses HTTP langsung
-        command: ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+        # PAKSA CLEAR CACHE SEBELUM SERVE
+        command: ["sh", "-c", "php artisan config:clear && php artisan serve --host=0.0.0.0 --port=8000"]
         ports:
-        - containerPort: 8000 # Port default artisan serve
+        - containerPort: 8000
         envFrom:
         - secretRef:
             name: laravel-secrets
@@ -42,7 +43,7 @@ spec:
     app: room-booking
   ports:
     - protocol: TCP
-      port: 80          # Port internal cluster
-      targetPort: 8000  # Harus diarahkan ke 8000 (artisan serve)
-      nodePort: 32222   # Akses dari luar via IP_NODE:32222
+      port: 80
+      targetPort: 8000
+      nodePort: 32222
   type: NodePort
