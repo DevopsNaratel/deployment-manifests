@@ -8,14 +8,22 @@ Struktur repositori ini dirancang agar sederhana dan mudah dikembangkan:
 
 ```text
 .
-├── deploymen-manifests/     # Seluruh manifest aplikasi ada di sini
-│   ├── aplikasi-web-1/      # Contoh aplikasi web
-│   │   ├── deployment.yaml
-│   │   └── ingress.yaml
-│   ├── aplikasi-web-2/     
-│   │   ├── deployment.yaml
-│   │   └── ingress.yaml
-└── README.md
+├── aplikasi-1
+│   ├── dev
+│   │   └── deployment.yaml
+│   └── prod
+│       └── deployment.yaml
+├── aplikasi-2
+│   ├── dev
+│   │   └── deployment.yaml
+│   └── prod
+│       └── deployment.yaml
+├── aplkasi-3
+│   ├── dev
+│   │   └── deployment.yaml
+│   └── prod
+│       └── deployment.yaml
+
 
 ```
 
