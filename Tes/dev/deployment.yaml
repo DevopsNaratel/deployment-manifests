@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: landingpage-app
+  namespace: projectNLP
+  labels:
+    app: landingpage
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: landingpage
+  template:
+    metadata:
+      labels:
+        app: landingpage
+    spec:
+      containers:
+      - name: landingpage
+        image: docker.io/diwamln/landingpage:build-12-7673597
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: landingpage
+  namespace: projectNLP
+spec:
+  selector:
+    app: landingpage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30051 # Port akses manual via IP VPS
+  type: NodePort
