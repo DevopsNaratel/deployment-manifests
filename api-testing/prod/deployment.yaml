@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: api-testing
-        image: docker.io/diwamln/api-testing:build-6-ef38450
+        image: docker.io/diwamln/api-testing:build-18-5a096f1
         ports:
         - containerPort: 80
         resources:
