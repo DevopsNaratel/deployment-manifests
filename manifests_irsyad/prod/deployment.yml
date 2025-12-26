@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: florist-landing
-        image: docker.io/your-dockerhub-username/landing-page-florist:latest
+        image: docker.io/diwamlm/florist-landing:latest
         ports:
         - containerPort: 80
         resources:
