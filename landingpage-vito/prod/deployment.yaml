@@ -40,5 +40,5 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30022 # Port akses manual via IP VPS
+      nodePort: 30033 # Port akses manual via IP VPS
   type: NodePort
