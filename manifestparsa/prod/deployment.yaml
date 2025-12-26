@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: calculator-app
+  name: landingpage-parsa-app
   namespace: projectNLP
   labels:
-    app: calculator
+    app: landingpage-parsa
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: calculator
+      app: landingpage-parsa
   template:
     metadata:
       labels:
-        app: calculator
+        app: landingpage-parsa
     spec:
       containers:
-      - name: calculator
-        image: docker.io/diwamln/calculator:build-12-7673597
+      - name: landingpage-parsa
+        image: docker.io/diwamln/landingpage-parsa:build-12-7673597
         ports:
         - containerPort: 80
         resources:
@@ -31,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: calculator-service
+  name: landingpage-parsa-service
   namespace: testing
 spec:
   selector:
-    app: calculator
+    app: landingpage-parsa
   ports:
     - protocol: TCP
       port: 80
