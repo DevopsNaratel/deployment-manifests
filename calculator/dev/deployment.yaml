@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: calculator
-        image: docker.io/diwamln/calculator:build-22-7673597
+        image: docker.io/diwamln/calculator:build-23-7673597
         ports:
         - containerPort: 80
         resources:
