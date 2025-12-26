@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: landing-page-isp
-          image: docker.io/diwamln/landing-page-isp:build-11-bfa93d9
+          image: docker.io/diwamln/landing-page-isp:build-16-bfa93d9
           ports:
             - containerPort: 80
           resources:
