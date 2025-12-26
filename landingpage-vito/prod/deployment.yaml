@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: landingpage-vito-app
-  namespace: testing
+  namespace: prod
   labels:
     app: landingpage-vito
 spec:
@@ -32,7 +32,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: landingpage-vito-service
-  namespace: testing
+  namespace: prod
 spec:
   selector:
     app: landingpage-vito
